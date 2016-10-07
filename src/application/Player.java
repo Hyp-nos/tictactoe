@@ -1,4 +1,4 @@
-package connection;
+package application;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import application.Game;
 
 public class Player implements  Runnable {
 	private Socket socket;
