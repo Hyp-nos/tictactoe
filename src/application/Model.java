@@ -31,29 +31,7 @@ public class Model implements Runnable {
 		}
 	}
 
-	@Override
-	public void run() {
-		sendToServer();
-
-	}
-
-	private void sendToServer() {
-		String input = "X";
-		try {
-
-			out.write(input + "\n");
-			// .....
-
-			out.flush();
-			updateView();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private void updateView() {
+	/*private void updateView() {
 		try {
 		String	messageFromServer = in.readLine();
 			while (messageFromServer != null) {
@@ -65,12 +43,25 @@ public class Model implements Runnable {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
 
 	public String handleSqr() {
 		
 		System.out.println("click worked");
 		try {
+			String input = "X";
+			try {
+
+				out.write(input + "\n");
+				// .....
+
+				out.flush();
+			//	updateView();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			
 			if (in.readLine().equalsIgnoreCase("X"))
 		
@@ -81,5 +72,11 @@ public class Model implements Runnable {
 		}
 		return "O";
 
+	}
+
+	@Override
+	public void run() {
+		
+		
 	}
 }
