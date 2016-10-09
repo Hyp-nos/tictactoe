@@ -68,8 +68,7 @@ public class Model implements Runnable {
 	}
 
 	public String handleSqr() {
-		Thread th = new Thread(this);
-		th.start();
+		
 		System.out.println("click worked");
 		try {
 			

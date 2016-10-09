@@ -34,7 +34,7 @@ public class Player extends Thread {
 
 		 out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		
+		while(true){
 		String messageFromClient= in.readLine();
 		while(messageFromClient!=null){
 			out.write(messageFromClient);
@@ -42,7 +42,7 @@ public class Player extends Thread {
 			
 			
 		}
-		
+		}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
