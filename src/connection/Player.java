@@ -1,4 +1,4 @@
-package application;
+package connection;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,22 +9,22 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Player implements  Runnable {
+public class Player extends Thread {
 	private Socket socket;
 	private  BufferedReader in;
 	private  BufferedWriter out;
 	private  String sign;
-	private  Game game;
+
 	private Player opponent;
 	
 	
 	
 	
-	static int id = 0;
-	public Player(Socket socket, String sign, Game game) {
+
+	public Player(Socket socket, String sign) {
 		this.socket = socket;
 		this.sign=sign;
-		this.game=game;
+
 
 	}
 
@@ -38,7 +38,7 @@ public class Player implements  Runnable {
 		
 		
 		while(in.readLine()!=null){
-			System.out.println(id);
+			System.out.println("in player class");
 			
 			
 		}
@@ -47,6 +47,9 @@ public class Player implements  Runnable {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+			
+		
 	}
 
 	public String getSign() {
@@ -65,5 +68,5 @@ public class Player implements  Runnable {
 	public synchronized BufferedWriter getOut() {
 		return out;
 	}
-
+	
 }
