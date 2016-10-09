@@ -14,7 +14,9 @@ public class Model implements Runnable {
 	Socket socket;
 	BufferedWriter out;
 	BufferedReader in;
-
+	int player1 = 1;
+	int player2 = 2;
+	String sign="X";
 
 	public Model() {
 
@@ -31,42 +33,49 @@ public class Model implements Runnable {
 		}
 	}
 
-	/*private void updateView() {
-		try {
-		String	messageFromServer = in.readLine();
-			while (messageFromServer != null) {
-
-				System.out.println(messageFromServer);
-			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
-	}*/
+	/*
+	 * private void updateView() { try { String messageFromServer =
+	 * in.readLine(); while (messageFromServer != null) {
+	 * 
+	 * System.out.println(messageFromServer); } } catch (IOException e) {
+	 * 
+	 * e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 
 	public String handleSqr() {
-		
-		System.out.println("click worked");
-		try {
-			String input = "X";
+		String input;
+		boolean excuted = false;
+		/*if (!excuted) {
 			try {
-
-				out.write(input + "\n");
-				// .....
-
-				out.flush();
-			//	updateView();
+				int player = in.read();
+				System.out.println(player + "the guy");
+				if (player == player1)
+					sign = "X";
+				else
+					sign = "O";
 
 			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				excuted = true;
 			}
+		}*/
 
-			
-			if (in.readLine().equalsIgnoreCase("X"))
-		
+		System.out.println("click worked");
+
+		try {
+
+			out.write(sign + "\n");
+			// .....
+
+			out.flush();
+			String messageFromServer = in.readLine();
+			if (messageFromServer.equalsIgnoreCase("X")) {
+				System.out.println("WE ARE HERE IN HANDLE FOR X ");
 				return "X";
-
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +85,6 @@ public class Model implements Runnable {
 
 	@Override
 	public void run() {
-		
-		
+
 	}
 }

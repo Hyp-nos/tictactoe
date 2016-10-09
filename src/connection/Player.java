@@ -34,11 +34,17 @@ public class Player extends Thread {
 
 		 out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		 System.out.println("checkkkk");
+			out.write(String.valueOf(1));
+			out.flush();
 		while(true){
+			
 		String messageFromClient= in.readLine();
 		
-			out.write(messageFromClient);
+			out.write(messageFromClient+"\n");
+			System.out.println(messageFromClient);
 			System.out.println("in player class");
+			out.flush();
 
 		}
 		}

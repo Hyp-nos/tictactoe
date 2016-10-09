@@ -10,7 +10,7 @@ import java.net.Socket;
 public class TicServer {
 	private static int port=9876;
 	private  ServerSocket serverSocket;
-	
+	static Player player1;
 
 	public static void main(String[] args) {
 		new TicServer().start();
@@ -22,10 +22,10 @@ public class TicServer {
 			System.out.println("Tic Tac Toe Server is waiting clients ....");
 			while (true){
 				Socket socket = serverSocket.accept(); 
-				Player player1 = new Player(socket, " X ");
-			//	Player player2 = new Player(serverSocket.accept(), " O ");
-			//	player1.setOpponent(player2);
-			//	player2.setOpponent(player1);
+				 player1 = new Player(socket, " X ");
+		// 		Player player2 = new Player(socket, " O ");
+		//		player1.setOpponent(player2);
+		//		player2.setOpponent(player1);
 				//game.setOnTurn(player1);
 				Thread thread = new Thread(player1);
 				thread.start();
