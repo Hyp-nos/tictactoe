@@ -1,5 +1,10 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
@@ -14,29 +19,34 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View {
+	Model model;
 	Stage stage;
 	BorderPane root;
 	Pane board;
+	Socket socket;
+	ArrayList<SquareSpot> group = new ArrayList<>();
 
-	ArrayList<SquareSpot> group;
-	SquareSpot sqr;
-
-	public View(Stage stage) {
+	public View(Stage stage, Model model) {
 		this.stage = stage;
-
+		this.model = model;
 		root = new BorderPane();
 		board = new Pane();
 		// create the main borad and fill it with 9 squares
 		for (int i = 0; i < 3; i++) {
 			for (int k = 0; k < 3; k++) {
-				sqr = new SquareSpot();
+
+				SquareSpot sqr = new SquareSpot();
+				group.add(sqr);
 				// define coordinates
 				sqr.setTranslateX(k * 200);
 				sqr.setTranslateY(i * 200);
+
 				// add them to the main board
 				board.getChildren().add(sqr);
+
 			}
 		}
+
 		root.setCenter(board);
 		Scene scene = new Scene(root, 600, 600);
 		stage.setScene(scene);
@@ -48,16 +58,6 @@ public class View {
 
 	public void stop() {
 		stage.hide();
-	}
-
-	public void drawX() {
-		sqr.getTxt().setText("X\n");
-
-	}
-
-	public void drawY() {
-		sqr.getTxt().setText("Y\n");
-
 	}
 
 	public class SquareSpot extends StackPane {
@@ -81,8 +81,8 @@ public class View {
 			rec.setStrokeWidth(10);
 			this.getChildren().add(rec);
 			this.getChildren().add(shape);
-			this.setOnMouseClicked(e-> {
-				Controller.handleSqr();
+			this.setOnMouseClicked(e -> {
+				setSign(model.handleSqr());
 			});
 		}
 
@@ -94,6 +94,6 @@ public class View {
 		public Text getTxt() {
 			return shape;
 		}
-		
+
 	}
 }

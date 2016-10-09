@@ -7,15 +7,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public class Model implements Runnable{
-	View view;
+import javafx.scene.input.MouseEvent;
+
+public class Model implements Runnable {
+
 	Socket socket;
 	BufferedWriter out;
 	BufferedReader in;
-	String message;
 
-	public  Model(View view) {
-		this.view = view;
+
+	public Model() {
 
 		try {
 
@@ -35,29 +36,29 @@ public class Model implements Runnable{
 		sendToServer();
 
 	}
+
 	private void sendToServer() {
-		String input = "send to server method";
+		String input = "X";
 		try {
-			
+
 			out.write(input + "\n");
-			//.....
-			
+			// .....
+
 			out.flush();
 			updateView();
-			
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void updateView() {
 		try {
-			while ((message = in.readLine()) != null) {
+		String	messageFromServer = in.readLine();
+			while (messageFromServer != null) {
 
-				System.out.println(message);
+				System.out.println(messageFromServer);
 			}
 		} catch (IOException e) {
 
@@ -65,6 +66,21 @@ public class Model implements Runnable{
 		}
 
 	}
+
+	public String handleSqr() {
+		Thread th = new Thread(this);
+		th.start();
+		System.out.println("click worked");
+		try {
+			
+			if (in.readLine().equalsIgnoreCase("X"))
 		
-	
+				return "X";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "O";
+
+	}
 }

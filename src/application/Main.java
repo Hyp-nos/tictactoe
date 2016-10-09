@@ -18,8 +18,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		
 			try {
-				 view = new View(primaryStage);
-				 model = new Model(view);
+				 model = new Model();
+				 view = new View(primaryStage, model);
 				 controller = new Controller(model, view);
 				view.start();
 			}  catch (Exception e) {
