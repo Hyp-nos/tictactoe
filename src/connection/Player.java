@@ -10,11 +10,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Player extends Thread {
-	private Socket socket;
+	private static Socket socket;
 	private  BufferedReader in;
 	private  BufferedWriter out;
-	private  String sign;
-
+	private   String sign;
+	//private  Player single;
 	private Player opponent;
 	
 	
@@ -72,5 +72,14 @@ public class Player extends Thread {
 	public synchronized BufferedWriter getOut() {
 		return out;
 	}
+	/*public static Player getPlayer(Socket s, String ss){
+		socket = s;
+		sign = ss;
+		if (single==null){
+			single = new Player( socket,  sign);
+		}
+		return single;
+	}*/
+
 	
 }
