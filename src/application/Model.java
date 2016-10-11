@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
 public class Model implements Runnable {
@@ -18,7 +20,7 @@ public class Model implements Runnable {
 
 	String sign;
 	boolean excuted = false;
-	 int myTurn = 2;
+	int myTurn;
 
 	public Model() {
 
@@ -36,29 +38,25 @@ public class Model implements Runnable {
 	}
 
 	private void updateView() {
-		try {
-			Controller.getView().group.
-			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		/*
+		 * try { //Controller.getView().group. } } catch (IOException e) {
+		 * 
+		 * e.printStackTrace(); }
+		 */
 
 	}
 
 	public String handleSqr() {
-		String input;
 		// this get excuted only once
 		if (!excuted) {
 			try {
 				player = Integer.parseInt(in.readLine());
-				System.out.println(player);
-				
-				if (player == 1){
+				System.out.println("the player is : "+player);
+
+				if (player == 1) {
 					sign = "X";
 					System.out.println("You are the first player, your Sign is X");
-				}
-				else {
+				} else {
 					player = 2;
 					sign = "O";
 					System.out.println("You are the Second player, your Sign is O");
@@ -70,34 +68,59 @@ public class Model implements Runnable {
 				excuted = true;
 			}
 		}
-		if (sign.equalsIgnoreCase("x")&&myTurn%2==0) {
-		
+		try {
+			System.out.println(myTurn +"before");
+			out.write("Yo what is up\n");
+			//myTurn += Integer.parseInt(in.readLine());
+			System.out.println(myTurn +"after");
+		} catch (Exception e1) {
+
+			e1.printStackTrace();
+		}
+
+		if (myTurn!=0 &&myTurn % 2 == 0) {
+
 			System.out.println("player one turn");
 
 			try {
-				updateView();
-				myTurn++;
+				System.out.println(" in try after sign.equals method " + sign + "\n myTurn value " + myTurn);
+				out.write("Yo what is up\n");
+			//	out.write(String.valueOf(Controller.id)+"\n");
+				System.out.println("checking ID "+Controller.id);
 				return sign;
-			} catch (Exception e) {e.printStackTrace();}
 
-		} else if (sign.equalsIgnoreCase("O")&&myTurn%2!=0) {
-		
-			System.out.println("player 2 turn");
-			try {
-				updateView();
-				myTurn++;
-			return "O";
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-		}
-			myTurn=false;
-		
-		return null;
-	}
 
-	
+		} /*else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Information Dialog");
+			alert.setHeaderText("Look, an Information Dialog");
+			alert.setContentText("NOT UR TURN player 1");
+			alert.showAndWait();
+			// myTurn++;
+			System.out.println("My turn value " + myTurn);
+		}*/
+
+		if (myTurn % 2 != 0) {
+			
+			System.out.println("player 2 turn");
+			try {
+				out.write(String.valueOf(Controller.id)+"\n");
+				// updateView();
+			
+				System.out.println("in second player turn ");
+				System.out.println("ID "+ Controller.id);
+				return sign;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return sign;
+	}
 
 	@Override
 	public void run() {
