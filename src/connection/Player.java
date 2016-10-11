@@ -16,15 +16,16 @@ public class Player extends Thread {
 	private   String sign;
 	//private  Player single;
 	private Player opponent;
-	
+	  static String temp;
+	  boolean iGoFirst= true;
 	
 	
 	
 
-	public Player(Socket socket, String sign) {
+	public Player(Socket socket, String sign, boolean firstPlayer) {
 		this.socket = socket;
 		this.sign=sign;
-
+		iGoFirst=firstPlayer;
 
 	}
 
@@ -35,18 +36,20 @@ public class Player extends Thread {
 		 out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		 System.out.println("checkkkk");
-			out.write(String.valueOf(1));
+		 if(iGoFirst)
+			out.write(String.valueOf(1)+"\n");
+		 else out.write(String.valueOf(2)+"\n");
 			out.flush();
-		while(true){
-			
-		String messageFromClient= in.readLine();
-		
-			out.write(messageFromClient+"\n");
+			String messageFromClient;
+	/*	while(( messageFromClient=in.readLine())!=null){
+			temp = messageFromClient+"\n";
+	
+			out.write(temp);
 			System.out.println(messageFromClient);
-			System.out.println("in player class");
+			System.out.println("this is temp "+temp);
 			out.flush();
 
-		}
+		}*/
 		}
 		catch(Exception e) {
 			e.printStackTrace();

@@ -14,9 +14,11 @@ public class Model implements Runnable {
 	Socket socket;
 	BufferedWriter out;
 	BufferedReader in;
-	int player1 = 1;
-	int player2 = 2;
-	String sign="X";
+	int player;
+
+	String sign;
+	boolean excuted = false;
+	 int myTurn = 2;
 
 	public Model() {
 
@@ -33,55 +35,69 @@ public class Model implements Runnable {
 		}
 	}
 
-	/*
-	 * private void updateView() { try { String messageFromServer =
-	 * in.readLine(); while (messageFromServer != null) {
-	 * 
-	 * System.out.println(messageFromServer); } } catch (IOException e) {
-	 * 
-	 * e.printStackTrace(); }
-	 * 
-	 * }
-	 */
+	private void updateView() {
+		try {
+			Controller.getView().group.
+			}
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
 
 	public String handleSqr() {
 		String input;
-		boolean excuted = false;
-		/*if (!excuted) {
+		// this get excuted only once
+		if (!excuted) {
 			try {
-				int player = in.read();
-				System.out.println(player + "the guy");
-				if (player == player1)
+				player = Integer.parseInt(in.readLine());
+				System.out.println(player);
+				
+				if (player == 1){
 					sign = "X";
-				else
+					System.out.println("You are the first player, your Sign is X");
+				}
+				else {
+					player = 2;
 					sign = "O";
+					System.out.println("You are the Second player, your Sign is O");
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				excuted = true;
 			}
-		}*/
-
-		System.out.println("click worked");
-
-		try {
-
-			out.write(sign + "\n");
-			// .....
-
-			out.flush();
-			String messageFromServer = in.readLine();
-			if (messageFromServer.equalsIgnoreCase("X")) {
-				System.out.println("WE ARE HERE IN HANDLE FOR X ");
-				return "X";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return "O";
+		if (sign.equalsIgnoreCase("x")&&myTurn%2==0) {
+		
+			System.out.println("player one turn");
 
+			try {
+				updateView();
+				myTurn++;
+				return sign;
+			} catch (Exception e) {e.printStackTrace();}
+
+		} else if (sign.equalsIgnoreCase("O")&&myTurn%2!=0) {
+		
+			System.out.println("player 2 turn");
+			try {
+				updateView();
+				myTurn++;
+			return "O";
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+			myTurn=false;
+		
+		return null;
 	}
+
+	
 
 	@Override
 	public void run() {

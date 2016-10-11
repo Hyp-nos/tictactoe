@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,7 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class View {
+public class View extends Observable  {
 	Model model;
 	Stage stage;
 	BorderPane root;
@@ -52,6 +53,8 @@ public class View {
 		stage.setScene(scene);
 	}
 
+	
+
 	public void start() {
 		stage.show();
 	}
@@ -59,7 +62,16 @@ public class View {
 	public void stop() {
 		stage.hide();
 	}
-
+	@Override
+	protected synchronized void setChanged() {
+		// TODO Auto-generated method stub
+		super.setChanged();
+	}
+	@Override
+	public void notifyObservers(Object data) {
+		// TODO Auto-generated method stub
+		super.notifyObservers(data);
+	}
 	public class SquareSpot extends StackPane {
 		Text shape = new Text("hi");
 
@@ -72,7 +84,7 @@ public class View {
 		}
 
 		Rectangle rec;
-
+		
 		public SquareSpot() {
 
 			rec = new Rectangle(200, 200);
@@ -96,4 +108,5 @@ public class View {
 		}
 
 	}
+	
 }

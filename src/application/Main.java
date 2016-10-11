@@ -31,15 +31,15 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		//launch(args);
-		System.out.println("starting first");
+		launch(args);
+	/*	System.out.println("starting first");
 		Platform.runLater(() -> {
 			new Main().start(new Stage());
 		});
 		System.out.println("starting second");
 		Platform.runLater(() -> {
 			new Main().start(new Stage());
-		});
+		});*/
 	
 	}
 	@Override
