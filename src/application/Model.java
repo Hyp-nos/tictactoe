@@ -29,6 +29,27 @@ public class Model implements Runnable {
 			socket = new Socket("127.0.0.1", 9876);
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			// this get excuted only once
+			if (!excuted) {
+				try {
+					player = Integer.parseInt(in.readLine());
+					System.out.println("the player is : "+player);
+
+					if (player == 1) {
+						sign = "X";
+						System.out.println("You are the first player, your Sign is X");
+					} else {
+						player = 2;
+						sign = "O";
+						System.out.println("You are the Second player, your Sign is O");
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					excuted = true;
+				}
+			}
 
 		} catch (Exception e) {
 
@@ -47,31 +68,18 @@ public class Model implements Runnable {
 	}
 
 	public String handleSqr() {
-		// this get excuted only once
-		if (!excuted) {
-			try {
-				player = Integer.parseInt(in.readLine());
-				System.out.println("the player is : "+player);
-
-				if (player == 1) {
-					sign = "X";
-					System.out.println("You are the first player, your Sign is X");
-				} else {
-					player = 2;
-					sign = "O";
-					System.out.println("You are the Second player, your Sign is O");
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				excuted = true;
-			}
+		try {
+			out.write(String.valueOf(Controller.id)+"\n");
+			out.flush();
+			System.out.println("sent the server the node ID "+ Controller.id);
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
 		try {
 			System.out.println(myTurn +"before");
-			out.write("Yo what is up\n");
-			//myTurn += Integer.parseInt(in.readLine());
+			
+			myTurn = Integer.parseInt(in.readLine());
 			System.out.println(myTurn +"after");
 		} catch (Exception e1) {
 
@@ -84,8 +92,8 @@ public class Model implements Runnable {
 
 			try {
 				System.out.println(" in try after sign.equals method " + sign + "\n myTurn value " + myTurn);
-				out.write("Yo what is up\n");
-			//	out.write(String.valueOf(Controller.id)+"\n");
+			//	out.write("Yo what is up\n");
+				
 				System.out.println("checking ID "+Controller.id);
 				return sign;
 
@@ -124,6 +132,27 @@ public class Model implements Runnable {
 
 	@Override
 	public void run() {
+		// this get excuted only once
+			/*	if (!excuted) {
+					try {
+						player = Integer.parseInt(in.readLine());
+						System.out.println("the player is : "+player);
+
+						if (player == 1) {
+							sign = "X";
+							System.out.println("You are the first player, your Sign is X");
+						} else {
+							player = 2;
+							sign = "O";
+							System.out.println("You are the Second player, your Sign is O");
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						excuted = true;
+					}
+				}*/
 
 	}
 }
